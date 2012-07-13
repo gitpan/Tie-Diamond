@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 sub TIEARRAY {
     my $class = shift;
@@ -54,7 +54,7 @@ Tie::Diamond - Iterate the diamond operator via a Perl array
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -66,7 +66,12 @@ version 0.01
 
 =head1 DESCRIPTION
 
-This module lets you iterate the diamond operator via a Perl array.
+This module lets you iterate the diamond operator via a Perl array. Currently
+the only useful thing you can do with the array is just iterate it using each(),
+as shown in Synopsis.
+
+The array backend does not slurp all lines into memory (or store past lines at
+all, actually), so it's safe to iterate over gigantic input.
 
 =head1 FAQ
 
