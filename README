@@ -1,0 +1,46 @@
+NAME
+    Tie::Diamond - Iterate the diamond operator via a Perl array
+
+VERSION
+    version 0.01
+
+SYNOPSIS
+     use Tie::Diamond;
+     tie my(@ary), "Tie::Diamond" or die;
+     while (my ($idx, $item) = each @ary) {
+         ...
+     }
+
+DESCRIPTION
+    This module lets you iterate the diamond operator via a Perl array.
+
+FAQ
+  Why?
+    So you can treat the diamond operator as an array. One of my modules,
+    Data::Unixish, uses this. A function can be passed a real array (to
+    iterate over a Perl array), or a tied array (to iterate lines from STDIN
+    or files mentioned in arguments); they don't have to change their
+    iteration syntax.
+
+  Can I do this?
+     @other = @ary; # or print @ary
+
+    Currently no. But since you are slurping all lines anyway, you might as
+    well just do:
+
+     @other = <>; # or print <>
+
+SEE ALSO
+    Iterator::Diamond
+
+    Tie::File
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
