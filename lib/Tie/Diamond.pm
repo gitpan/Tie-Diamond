@@ -4,12 +4,13 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 sub TIEARRAY {
     my $class = shift;
+    my $opts  = shift // {};
 
-    bless { size=>0, eof=>0 }, $class;
+    bless { size=>0, eof=>0, opts=>$opts }, $class;
 }
 
 sub FETCH {
@@ -32,6 +33,7 @@ sub FETCHSIZE {
         $size = $self->{size};
     } elsif (my $rec = <>) {
         $size = ++$self->{size};
+        chomp($rec) if $self->{opts}{chomp};
         $self->{rec} = $rec;
     } else {
         $self->{eof}++;
@@ -54,7 +56,7 @@ Tie::Diamond - Iterate the diamond operator via a Perl array
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -64,6 +66,9 @@ version 0.02
      ...
  }
 
+ # to autochomp lines ...
+ tie my(@ary), "Tie::Diamond", {chomp=>1} or die;
+
 =head1 DESCRIPTION
 
 This module lets you iterate the diamond operator via a Perl array. Currently
@@ -72,6 +77,18 @@ as shown in Synopsis.
 
 The array backend does not slurp all lines into memory (or store past lines at
 all, actually), so it's safe to iterate over gigantic input.
+
+=head1 TIE() OPTIONS
+
+Options are passed as a hashref. Known keys:
+
+=over 4
+
+=item * chomp => BOOL (default 0)
+
+If set to true, lines will be chomp()-ed.
+
+=back
 
 =head1 FAQ
 

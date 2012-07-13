@@ -20,4 +20,4 @@ requires:
 resources:
   homepage: http://metacpan.org/dist/Tie-Diamond
   repository: http://github.com/sharyanto/perl-Tie-Diamond
-version: 0.02
+version: 0.03
