@@ -32,6 +32,7 @@
       "test" : {
          "requires" : {
             "File::Slurp" : 0,
+            "Syntax::Feature::EachOnArray" : 0,
             "Test::More" : "0.96"
          }
       }
@@ -43,6 +44,6 @@
          "url" : "http://github.com/sharyanto/perl-Tie-Diamond"
       }
    },
-   "version" : "0.03"
+   "version" : "0.04"
 }
 

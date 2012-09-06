@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 sub TIEARRAY {
     my $class = shift;
@@ -56,7 +56,7 @@ Tie::Diamond - Iterate the diamond operator via a Perl array
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -71,9 +71,10 @@ version 0.03
 
 =head1 DESCRIPTION
 
-This module lets you iterate the diamond operator via a Perl array. Currently
-the only useful thing you can do with the array is just iterate it using each(),
-as shown in Synopsis.
+This class lets you iterate the diamond operator via a Perl array. Currently the
+only useful thing you can do with the array is just iterate it using each(), as
+shown in Synopsis. To be more exact, the class currently only implements FETCH()
+and FETCHSIZE().
 
 The array backend does not slurp all lines into memory (or store past lines at
 all, actually), so it's safe to iterate over gigantic input.
@@ -94,25 +95,32 @@ If set to true, lines will be chomp()-ed.
 
 =head2 Why?
 
-So you can treat the diamond operator as an array. One of my modules,
-L<Data::Unixish>, uses this. A function can be passed a real array (to iterate
-over a Perl array), or a tied array (to iterate lines from STDIN or files
-mentioned in arguments); they don't have to change their iteration syntax.
+So you can iterate using each(), basically, or to be compatible with a normal
+Perl.
 
-=head2 Can I do this?
+One of my modules, L<Data::Unixish>, has functions that accept array. It can
+either an actual Perl array (to iterate over a in-memory structure), or a tied
+array (to iterate lines from STDIN/files). The functions do not need to care;
+they can just use each().
+
+=head2 Can I slurp?
 
  @other = @ary; # or print @ary
 
-Currently no. But since you are slurping all lines anyway, you might as well
-just do:
+Currently no. And anyway, if you want to slurp all lines, you might as well just
+do:
 
  @other = <>; # or print <>
+
+and skip this class altogether.
 
 =head1 SEE ALSO
 
 L<Iterator::Diamond>
 
 L<Tie::File>
+
+L<Syntax::Feature::EachOnArray> if you are using Perl older than 5.12.
 
 =head1 AUTHOR
 

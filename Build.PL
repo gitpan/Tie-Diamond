@@ -9,6 +9,7 @@ my %module_build_args = (
   "build_requires" => {
     "File::Slurp" => 0,
     "Module::Build" => "0.3601",
+    "Syntax::Feature::EachOnArray" => 0,
     "Test::More" => "0.96"
   },
   "configure_requires" => {
@@ -19,7 +20,7 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Tie-Diamond",
-  "dist_version" => "0.03",
+  "dist_version" => "0.04",
   "license" => "perl",
   "module_name" => "Tie::Diamond",
   "recommends" => {},
