@@ -1,10 +1,10 @@
 package Tie::Diamond;
 
-use 5.010;
+use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 sub TIEARRAY {
     my $class = shift;
@@ -31,13 +31,23 @@ sub FETCHSIZE {
     my $size;
     if ($self->{eof}) {
         $size = $self->{size};
-    } elsif (my $rec = <>) {
-        $size = ++$self->{size};
-        chomp($rec) if $self->{opts}{chomp};
-        $self->{rec} = $rec;
     } else {
-        $self->{eof}++;
-        $size = $self->{size};
+        my $rec;
+        if ($self->{opts}{utf8}) {
+            use open ':std', ':utf8';
+            $rec = <>;
+        } else {
+            $rec = <>;
+        }
+
+        if ($rec) {
+            $size = ++$self->{size};
+            chomp($rec) if $self->{opts}{chomp};
+            $self->{rec} = $rec;
+        } else {
+            $self->{eof}++;
+            $size = $self->{size};
+        }
     }
     #print "FETCHSIZE() -> $size\n";
     $size;
@@ -46,9 +56,11 @@ sub FETCHSIZE {
 1;
 # ABSTRACT: Iterate the diamond operator via a Perl array
 
-
 __END__
+
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -56,7 +68,7 @@ Tie::Diamond - Iterate the diamond operator via a Perl array
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -79,6 +91,11 @@ and FETCHSIZE().
 The array backend does not slurp all lines into memory (or store past lines at
 all, actually), so it's safe to iterate over gigantic input.
 
+=head1 FUNCTIONS
+
+
+None are exported by default, but they are exportable.
+
 =head1 TIE() OPTIONS
 
 Options are passed as a hashref. Known keys:
@@ -88,6 +105,11 @@ Options are passed as a hashref. Known keys:
 =item * chomp => BOOL (default 0)
 
 If set to true, lines will be chomp()-ed.
+
+=item * utf8 => BOOL (default 0)
+
+If set to true, will issue a 'use open qw(:std :utf8)' pragma so that input is
+read as UTF-8 data.
 
 =back
 
@@ -122,16 +144,32 @@ L<Tie::File>
 
 L<Syntax::Feature::EachOnArray> if you are using Perl older than 5.12.
 
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/Tie-Diamond>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-Tie-Diamond>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=Tie-Diamond>
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
 =head1 AUTHOR
 
 Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Steven Haryanto.
+This software is copyright (c) 2013 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

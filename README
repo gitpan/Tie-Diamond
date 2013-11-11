@@ -2,7 +2,7 @@ NAME
     Tie::Diamond - Iterate the diamond operator via a Perl array
 
 VERSION
-    version 0.04
+    version 0.05
 
 SYNOPSIS
      use Tie::Diamond;
@@ -23,12 +23,20 @@ DESCRIPTION
     The array backend does not slurp all lines into memory (or store past
     lines at all, actually), so it's safe to iterate over gigantic input.
 
+FUNCTIONS
+    None are exported by default, but they are exportable.
+
 TIE() OPTIONS
     Options are passed as a hashref. Known keys:
 
     *   chomp => BOOL (default 0)
 
         If set to true, lines will be chomp()-ed.
+
+    *   utf8 => BOOL (default 0)
+
+        If set to true, will issue a 'use open qw(:std :utf8)' pragma so
+        that input is read as UTF-8 data.
 
 FAQ
   Why?
@@ -57,11 +65,25 @@ SEE ALSO
 
     Syntax::Feature::EachOnArray if you are using Perl older than 5.12.
 
+HOMEPAGE
+    Please visit the project's homepage at
+    <https://metacpan.org/release/Tie-Diamond>.
+
+SOURCE
+    Source repository is at <https://github.com/sharyanto/perl-Tie-Diamond>.
+
+BUGS
+    Please report any bugs or feature requests on the bugtracker website
+    <https://rt.cpan.org/Public/Dist/Display.html?Name=Tie-Diamond>
+
+    When submitting a bug or request, please include a test-file or a patch
+    to an existing test-file that illustrates the bug or desired feature.
+
 AUTHOR
     Steven Haryanto <stevenharyanto@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2012 by Steven Haryanto.
+    This software is copyright (c) 2013 by Steven Haryanto.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as the Perl 5 programming language system itself.
