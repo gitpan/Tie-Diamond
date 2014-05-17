@@ -4,7 +4,7 @@ use 5.010001;
 use strict;
 use warnings;
 
-our $VERSION = '0.05'; # VERSION
+our $VERSION = '0.06'; # VERSION
 
 sub TIEARRAY {
     my $class = shift;
@@ -60,7 +60,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -68,7 +68,7 @@ Tie::Diamond - Iterate the diamond operator via a Perl array
 
 =head1 VERSION
 
-version 0.05
+This document describes version 0.06 of Tie::Diamond (from Perl distribution Tie-Diamond), released on 2014-05-17.
 
 =head1 SYNOPSIS
 
@@ -90,11 +90,6 @@ and FETCHSIZE().
 
 The array backend does not slurp all lines into memory (or store past lines at
 all, actually), so it's safe to iterate over gigantic input.
-
-=head1 FUNCTIONS
-
-
-None are exported by default, but they are exportable.
 
 =head1 TIE() OPTIONS
 
@@ -154,8 +149,7 @@ Source repository is at L<https://github.com/sharyanto/perl-Tie-Diamond>.
 
 =head1 BUGS
 
-Please report any bugs or feature requests on the bugtracker website
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=Tie-Diamond>
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=Tie-Diamond>
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -167,7 +161,7 @@ Steven Haryanto <stevenharyanto@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Steven Haryanto.
+This software is copyright (c) 2014 by Steven Haryanto.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
